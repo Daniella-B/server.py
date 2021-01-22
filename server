@@ -1,0 +1,60 @@
+import socket,random
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+s.bind((socket.gethostname(), 55555))
+
+s.listen(5)
+
+
+
+while True:
+    
+    clientsocket, adress = s.accept()
+    print("Startar server...")
+    print(f'Ansluten med {adress} !')
+    
+    message = clientsocket.recv(1024).decode('utf-8')
+    
+    
+    
+    if message == 'regn':
+        
+        weather = 'True' , 'False!, Det regnar imorgon. ', 'Det blir fint väder imorgon !'
+        
+        value = random.choice(weather)
+        reply = f'[SERVER SKICKADE] {value}'.encode('utf-8')
+        
+        clientsocket.send(reply)
+    
+        print(f'klient skickade  {message}')
+    
+    
+    elif message == 'turnummer':
+        
+        
+        number= random.randint(0, 100)
+        
+        reply = f'[SERVER SKICKADE] ditt turnummer är: {number}!!'.encode('utf-8')
+        
+        
+        clientsocket.send(reply)
+        print(f'klient skickade  {message}')
+        
+    elif message == 'whoami':
+        name = socket.gethostname()
+        
+        reply = f'[SERVER SKICKADE] {name}'.encode('utf-8')
+        
+        clientsocket.send(reply)
+        
+        print(f'klient skickade  {message}')
+        
+    elif message == 'hejmedium':
+        
+        name = socket.gethostname()
+        reply = f'[SERVER SKICKADE] Hej {name}!'.encode('utf-8')
+        
+        print(f'klient skickade  {message}')
+        
+        clientsocket.send(reply)
