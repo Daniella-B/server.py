@@ -1,0 +1,38 @@
+import socket
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+s.connect((socket.gethostname(), 55555))
+
+#accept message
+
+
+print("Du är nu ansluten!")
+    
+
+            
+
+user = input("\n skicka ett meddelande \n :").lower()
+
+if user in ('whoami', 'turnummer', 'hejmedium', 'regn'):
+    
+    
+    reply = user.encode('utf-8')
+    reply = s.send(reply)
+
+
+
+    msg = s.recv(1024).decode('utf-8')
+        
+        
+    print(msg)
+        
+    
+else:
+    
+    
+        
+        
+        print("fel komando!")
+            
+        loop = False
+
